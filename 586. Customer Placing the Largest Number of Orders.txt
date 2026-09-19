@@ -1,0 +1,14 @@
+https://leetcode.com/problems/customer-placing-the-largest-number-of-orders/description/
+
+
+
+-- Write your PostgreSQL query statement below
+WITH temp AS(
+    SELECT COUNT(customer_number) as o, customer_number
+    FROM Orders
+    GROUP BY customer_number
+)
+SELECT temp.customer_number
+FROM temp
+ORDER BY temp.o DESC
+LIMIT 1;

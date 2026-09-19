@@ -1,0 +1,14 @@
+https://leetcode.com/problems/number-of-1-bits/
+
+
+
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        ans = 0
+        for i in range(32):
+            x = (n >> i)&1
+            ans += x
+            print(n)
+        return ans
+        

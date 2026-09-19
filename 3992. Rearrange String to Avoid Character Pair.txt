@@ -1,0 +1,29 @@
+https://leetcode.com/problems/rearrange-string-to-avoid-character-pair/description/
+
+
+
+
+class Solution {
+public:
+    string rearrangeString(string s, char x, char y) {
+        vector<char> remaining;
+        string ans = "";
+        int p = x, q = y;
+
+        int n = s.size();
+
+        for(int i=0; i<n; i++){
+            char temp = s[i];
+            if(temp == x)remaining.push_back(temp);
+            else{
+                ans += temp;
+            }
+        }
+
+        for(int i=0; i<remaining.size(); i++){
+            ans += remaining[i];
+        }
+
+        return ans;
+    }
+};

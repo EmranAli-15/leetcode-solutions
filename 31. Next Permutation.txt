@@ -1,0 +1,46 @@
+https://leetcode.com/problems/next-permutation/description/
+
+
+
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int len = nums.size() - 1;
+        int flag = 0;
+
+        if (len != 0) {
+            int i = 0, j = len;
+            
+            for (int f = len; f > 0; f--) {
+                if (nums[f - 1] < nums[f]) {
+                    i = f-1;
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag){
+                for (int k = len; k > i; k--) {
+                    if (nums[k] > nums[i]) {
+                        j = k;
+                        break;
+                    }
+                }
+
+                int t = nums[i];
+                nums[i] = nums[j];
+                nums[j] = t;
+                i++;
+            }
+
+            while (i < len) {
+                int t = nums[i];
+                nums[i] = nums[len];
+                nums[len] = t;
+                i++;
+                len--;
+            }
+        }
+    }
+};

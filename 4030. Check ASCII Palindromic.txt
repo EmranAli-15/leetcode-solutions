@@ -1,0 +1,33 @@
+https://leetcode.com/problems/check-ascii-palindromic/description/
+
+
+
+class Solution {
+public:
+    bool isPalindromic(string s) {
+        string bi = "";
+
+        int len = s.size();
+        for(int i=0; i<len; i++){
+            int x = s[i];
+            string temp = "";
+            for(int j=0; j<8; j++){
+                int v = (x >> j)&1;
+                temp+=to_string(v);
+            }
+            reverse(temp.begin(), temp.end());
+            bi+=temp;
+        }
+
+        int l=0, r=bi.size()-1;
+        while(l<r){
+            if(bi[l] == bi[r]){
+                l++;
+                r--;
+            }
+            else return false;
+        }
+
+        return true;
+    }
+};

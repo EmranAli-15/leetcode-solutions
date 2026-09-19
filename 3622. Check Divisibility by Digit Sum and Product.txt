@@ -1,0 +1,23 @@
+https://leetcode.com/problems/check-divisibility-by-digit-sum-and-product/description/
+
+
+
+class Solution {
+public:
+    bool checkDivisibility(int n) {
+        int x = n;
+        int sum=0;
+        int mul=1;
+
+        while(x){
+            int r = x/10;
+            int d = x%10;
+            sum+=d;
+            mul*=d;
+            x = r;
+        }
+
+        if(n%(sum+mul)==0)return true;
+        return false;
+    }
+};

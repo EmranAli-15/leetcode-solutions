@@ -1,0 +1,177 @@
+https://leetcode.com/problems/simplify-path/description/
+
+
+
+
+
+class Solution
+{
+public:
+    string simplifyPath(string path)
+    {
+        int len = path.size();
+        stack<char>ans;
+
+        char ch, last_one;
+        int n;
+
+        int dots = 0;
+
+        for(int i=0; i<len; i++)
+        {
+            char l = path[i];
+
+            if(ans.empty())
+            {
+                ans.push(l);
+                continue;
+            }
+            if(!ans.empty()) ch = ans.top();
+
+            if(l != '/')
+            {
+                ans.push(l);
+                if(l == '.') dots++;
+                else dots = 0;
+            }
+
+            if(l == '/')
+            {
+                if(dots == 1)
+                {
+                    char one = ans.top();
+                    ans.pop();
+                    char two = ans.top();
+
+                    if(two != '/')
+                    {
+                        ans.push(one);
+                        ans.push('/');
+                    }
+
+                    dots = 0;
+                }
+                else if(dots == 2)
+                {
+
+                    char one, two;
+                    one = ans.top();
+                    ans.pop();
+                    two = ans.top();
+                    ans.pop();
+
+                    char is_slash = ans.top();
+                    if(is_slash != '/')
+                    {
+                        ans.push(two);
+                        ans.push(one);
+                        ans.push(l);
+                        continue;
+                    }
+
+                    ans.pop();
+
+                    if(ans.empty())
+                    {
+                        dots = 0;
+                        ans.push('/');
+                        continue;
+                    }
+
+                    char slash = ans.top();
+
+                    while(slash != '/')
+                    {
+                        ans.pop();
+                        slash = ans.top();
+                    }
+
+                    dots = 0;
+                }
+                else if(ch == '/') continue;
+                else
+                {
+                    ans.push(l);
+                    last_one = l;
+                    dots = 0;
+                }
+            }
+
+        }
+
+        if(dots == 1)
+        {
+            char one = ans.top();
+            ans.pop();
+            char two = ans.top();
+
+            if(two != '/')
+            {
+                ans.push(one);
+                ans.push('/');
+            }
+
+            dots = 0;
+        }
+        else if(dots == 2)
+        {
+
+            char one, two;
+            one = ans.top();
+            ans.pop();
+            two = ans.top();
+            ans.pop();
+
+            char is_slash = ans.top();
+            if(is_slash != '/')
+            {
+                ans.push(two);
+                ans.push(one);
+            }
+            else
+            {
+                ans.pop();
+
+            if(ans.empty())
+            {
+                dots = 0;
+                ans.push('/');
+            }
+
+            char slash = ans.top();
+
+            while(slash != '/')
+            {
+                ans.pop();
+                slash = ans.top();
+            }
+
+            dots = 0;
+            }
+        }
+
+        string a = "";
+        if(ans.empty()) return "/";
+
+
+
+        int ans_size = ans.size()-1;
+        for(int i = ans_size; i>=0 ; i--)
+        {
+            char t = ans.top();
+
+            if(i == ans_size && t == '/')
+            {
+                ans.pop();
+                continue;
+            }
+
+            ans.pop();
+            a+=t;
+        }
+
+        reverse(a.begin(), a.end());
+        if(a.size() == 0) a+="/";
+        return a;
+    }
+};

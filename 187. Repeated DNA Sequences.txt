@@ -1,0 +1,36 @@
+https://leetcode.com/problems/repeated-dna-sequences/description/
+
+
+
+class Solution
+{
+public:
+    vector<string> findRepeatedDnaSequences(string s)
+    {
+        int n = s.size();
+        unordered_map<string, int> store;
+
+        vector<string> ans;
+
+        int i=0;
+        while(i<=n-10)
+        {
+            string temp = s.substr(i, 10);
+            if (store.find(temp) == store.end())
+            {
+                store[temp] = 0;
+            }
+            else
+            {
+                if(store[temp] == 0)
+                {
+                    store[temp]++;
+                    ans.push_back(temp);
+                }
+            }
+            i++;
+        }
+
+        return ans;
+    }
+};

@@ -1,0 +1,23 @@
+https://leetcode.com/problems/department-top-three-salaries/description/
+
+
+
+
+-- Write your PostgreSQL query statement below
+WITH temp_1 AS(
+    SELECT e.id, e.name, e.salary, e.departmentId, d.id AS d_id, d.name AS d_name
+    FROM Employee AS e
+    INNER JOIN Department as D
+    ON e.departmentId = d.id
+),
+temp_2 AS(
+    SELECT id, name, salary, departmentId, d_id, d_name,
+    DENSE_RANK()OVER(
+        PARTITION BY d_name
+        ORDER BY salary DESC
+    ) AS salary_rank
+    FROM temp_1
+)
+SELECT d_name AS Department, name AS Employee, salary AS Salary
+FROM temp_2
+WHERE salary_rank <= 3;

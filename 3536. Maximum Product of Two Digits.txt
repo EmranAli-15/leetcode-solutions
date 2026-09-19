@@ -1,0 +1,21 @@
+https://leetcode.com/problems/maximum-product-of-two-digits/description/
+
+
+
+class Solution {
+public:
+    int maxProduct(int n) {
+        int num = n;
+        vector<int> arr;
+
+        while(num){
+            int x = num%10;
+            arr.push_back(x);
+            num = num/10;
+        }
+
+        int len = arr.size();
+        sort(arr.begin(), arr.end());
+        return arr[len-1]*arr[len-2];
+    }
+};

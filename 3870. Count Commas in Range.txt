@@ -1,0 +1,16 @@
+https://leetcode.com/problems/count-commas-in-range/description/
+
+
+
+class Solution {
+public:
+    int countCommas(int n) {
+        string s = to_string(n);
+        int len = s.size();
+
+        int last = n%10;
+
+        if(len <= 3)return 0;
+        else return len/3 + last;
+    }
+};

@@ -1,0 +1,12 @@
+https://leetcode.com/problems/classes-with-at-least-5-students/description/
+
+
+
+
+-- Write your PostgreSQL query statement below
+WITH temp AS(
+    SELECT count(class) AS c, class
+    FROM Courses
+    GROUP BY class
+)
+SELECT class FROM temp WHERE c >= 5;

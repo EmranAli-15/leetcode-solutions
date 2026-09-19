@@ -1,0 +1,51 @@
+https://leetcode.com/problems/valid-sudoku/description/
+
+
+
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        # store = {}
+        # for i in range(9):
+        #     for j in range(9):
+        #         if board[i][j] == '.':
+        #             store[f"r{i}c{j}"] = '0'
+        #         else:
+        #             store[f"r{i}c{j}"] = board[i][j]
+
+        for r in range(9):
+            for c in range(9):
+                x = board[r][c]
+                if x == '.':
+                    continue
+
+                p = 0
+                q = 0    
+                if r<3: p=0
+                elif r>=3 and r<6: p=3
+                else: p=6
+                
+                if c<3: q=0
+                elif c>=3 and c<6: q=3
+                else: q=6
+
+                for i in range(9):
+                    if i != c:
+                        if board[r][i] == x:
+                            return False
+                for i in range(9):
+                    if i != r:
+                        if board[i][c] == x:
+                            return False
+                
+                val = 0
+                for i in range(p, p+3):
+                    for j in range(q, q+3):
+                        if board[i][j] == x:
+                            val+=1
+                p=0
+                q=0
+                if val > 1:
+                    return False
+            
+        return True

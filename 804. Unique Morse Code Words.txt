@@ -1,0 +1,23 @@
+https://leetcode.com/problems/unique-morse-code-words/description/
+
+
+
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        vector<string> arr = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+
+        set<string> mySet = {};
+
+        for(string s:words){
+            string a = "";
+            for(char c:s){
+                int k = c;
+                a+=arr[k-97];
+            }
+            mySet.insert(a);
+        }
+
+        return mySet.size();
+    }
+};

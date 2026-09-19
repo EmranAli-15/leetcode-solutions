@@ -1,0 +1,41 @@
+https://leetcode.com/problems/count-values-with-equally-spaced-occurrences-ii/description/
+
+
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countSpecialIntegers = function (nums) {
+    const data = {};
+
+    let ans = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        if(nums[i] in data){
+            data[nums[i]]++
+            data[nums[i]+"i"].push(i);
+        }
+        else{
+            data[nums[i]] = 1
+            data[nums[i]+"i"] = [i]
+        }
+    }
+
+    for(const key of Object.keys(data)){
+        if(Array.isArray(data[key]) && data[key].length >= 3){
+            const diff = data[key][0]-data[key][1];
+            let flag = true
+            for(let i=1; i<data[key].length-1; i++){
+                if(data[key][i] - data[key][i+1] != diff){
+                    flag = false
+                    break
+                }
+            }
+            if(flag)ans++
+        }
+    }
+
+    return ans;
+};

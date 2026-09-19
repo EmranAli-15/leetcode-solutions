@@ -1,0 +1,38 @@
+https://leetcode.com/problems/maximize-pair-strength-using-gcd/description/
+
+
+
+
+class Solution {
+public:
+    long long gcd(int a, int b)
+    {
+        while(b)
+        {
+            int temp = a;
+            a = b;
+            b = temp%a;
+        }
+        long long t = (long long)a * (long long)a;
+        return t;
+    }
+    long long maxPairStrength(vector<int>& nums) {
+        int n = nums.size();
+        long long res = 0;
+        
+        
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(i == j) continue;
+
+                long long mul = (long long)nums[i] * (long long)nums[j];
+                long long g = gcd(nums[i], nums[j]);
+
+                if((mul)/g > res) res = mul/g;
+            }
+        }
+        return res;
+    }
+};

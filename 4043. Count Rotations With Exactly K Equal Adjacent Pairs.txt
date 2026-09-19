@@ -1,0 +1,26 @@
+https://leetcode.com/problems/count-rotations-with-exactly-k-equal-adjacent-pairs/description/
+
+
+
+class Solution:
+    def countRotations(self, s: str, k: int) -> int:
+        n = len(s)
+
+        currentScore = 0
+        for i in range(n-1):
+            if s[i] == s[i+1]:
+                currentScore +=1
+
+        ans = 1 if currentScore == k else 0
+        t = s+s
+
+        for j in range(n-1):
+            if t[j]==t[j+1]:
+                currentScore -= 1
+            if t[j+n-1] == t[j+n]:
+                currentScore+=1
+
+            if currentScore == k:
+                ans+= 1
+
+        return ans
