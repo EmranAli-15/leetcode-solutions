@@ -1,0 +1,50 @@
+https://leetcode.com/problems/pascals-triangle-ii/description/?envType=problem-list-v2&envId=dynamic-programming
+
+
+
+
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        if(rowIndex == 0) return {1};
+        if(rowIndex == 1) return {1,1};
+
+        vector<vector<int>>ans = {{1}, {1,1}};
+
+        for(int i=1; i<rowIndex; i++) {
+            vector<int> t = {1};
+            int len = ans[i].size();
+            for(int j=0; j<len-1; j++) {
+                t.push_back(ans[i][j] + ans[i][j+1]);
+            }
+            t.push_back(1);
+            ans.push_back(t);
+        }
+
+        return ans[rowIndex];
+    }
+};
+
+
+
+
+----------------------------------------
+
+class Solution:
+    def fun(self, p, x, arr):
+        if p+1==x:
+            return arr
+    
+        if(x==0 or x==1):
+            arr.append(1)
+        else:
+            a = [1]
+            n = len(arr)
+            for i in range(n-1):
+                a.append(arr[i]+arr[i+1])
+            a.append(1)
+            arr = a
+        return self.fun(p, x+1, arr)
+
+    def getRow(self, rowIndex: int) -> list[int]:
+        return self.fun(rowIndex, 0, [])
