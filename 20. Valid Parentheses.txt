@@ -1,0 +1,36 @@
+https://leetcode.com/problems/valid-parentheses/description/?envType=daily-question&envId=2026-10-01
+
+
+
+
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> store;
+
+        for(auto ch:s){
+            if(ch == '(' || ch == '{' || ch == '['){
+                store.push(ch);
+                continue;
+            }
+
+            if(store.empty())return false;
+
+            char x = store.top();
+            store.pop();
+            
+            if(ch == ')'){
+                if(x != '(') return false;
+            }
+            else if(ch == '}'){
+                if(x != '{') return false;
+            }
+            else if(ch == ']'){
+                if(x != '[') return false;
+            }
+        }
+        if(store.empty())return true;
+        else return false;
+    }
+};

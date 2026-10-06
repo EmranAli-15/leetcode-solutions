@@ -1,0 +1,100 @@
+https://leetcode.com/problems/lru-cache/description/?envType=problem-list-v2&envId=hash-table
+
+
+
+
+
+class Node {
+public:
+    Node(int v, int k){
+        val = v;
+        key = k;
+    }
+    Node* next = NULL;
+    Node* prev = NULL;
+    int val;
+    int key;
+};
+
+class LRUCache {
+public:
+    int cap = 0;
+    Node* head;
+    Node* tail;
+    unordered_map<int, Node*> store;
+    LRUCache(int capacity) {
+        this->cap = capacity;
+        this->head = new Node(0,0);
+        this->tail = new Node(0,0);
+        this->head->next = this->tail;
+        this->tail->prev = this->head;
+    }
+    
+    int get(int key) {
+        if(this->store.count(key)){
+            Node* n = this->store.at(key);
+
+            n->prev->next = n->next;
+            n->next->prev = n->prev;
+
+            n->next = this->head->next;
+            n->prev = this->head;
+            n->next->prev = n;
+            this->head->next = n;
+
+            return n->val;
+        }
+        else return -1;
+    }
+    
+    void put(int key, int value) {
+        if(this->store.count(key)){
+            Node* n = this->store.at(key);
+
+            n->prev->next = n->next;
+            n->next->prev = n->prev;
+
+            n->next = this->head->next;
+            n->prev = this->head;
+            n->next->prev = n;
+            this->head->next = n;
+
+            n->val = value;
+        }
+        else {
+            if(this->cap == this->store.size()){
+                Node* n = new Node(value, key);
+                this->store.insert({key,n});
+
+                Node* lru = this->tail->prev;
+
+                n->next = this->head->next;
+                n->prev = this->head;
+                n->next->prev = n;
+                this->head->next = n;
+
+                this->store.erase(this->tail->prev->key);
+
+                this->tail->prev = this->tail->prev->prev;
+                this->tail->prev->next = tail;
+                delete lru;
+            }
+            else{
+                Node* n = new Node(value, key);
+                this->store.insert({key,n});
+
+                n->next = this->head->next;
+                n->prev = this->head;
+                n->next->prev = n;
+                this->head->next = n;
+            }
+        }
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

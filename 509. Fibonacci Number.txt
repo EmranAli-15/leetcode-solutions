@@ -1,0 +1,24 @@
+https://leetcode.com/problems/fibonacci-number/description/?envType=problem-list-v2&envId=recursion
+
+
+
+
+class Solution {
+public:
+    unordered_map<int, int> store = {{0,0},{1,1}};
+    int fib(int n) {
+        if(n==0)return 0;
+        else if(n==1)return 1;
+
+        int x, y;
+        if(store.count(n)){
+            return store.at(n);
+        }else{
+            x =  fib(n-2);
+            y =  fib(n-1);
+            store.insert({n-2, x});
+            store.insert({n-1, y});
+            return x+y;
+        }
+    }
+};
