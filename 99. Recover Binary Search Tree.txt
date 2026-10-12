@@ -1,0 +1,56 @@
+https://leetcode.com/problems/recover-binary-search-tree/description/?envType=problem-list-v2&envId=depth-first-search
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> list;
+    void re(TreeNode* node) {
+        if (node->left)
+            re(node->left);
+        list.push_back(node);
+        if (node->right)
+            re(node->right);
+    }
+    void recoverTree(TreeNode* root) {
+        list.clear();
+        re(root);
+
+        int len = list.size();
+
+        TreeNode* p;
+        TreeNode* q;
+
+        for (int i = 0; i < len - 1; i++) {
+            if (list[i]->val > list[i + 1]->val) {
+                p = list[i];
+                break;
+            }
+        }
+
+        for (int i = len-1; i > 0; i--) {
+            if (list[i]->val < list[i - 1]->val) {
+                q = list[i];
+                break;
+            }
+        }
+
+        int x = p->val;
+        p->val = q->val;
+        q->val = x;
+    }
+};

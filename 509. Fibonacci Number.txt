@@ -16,8 +16,7 @@ public:
         }else{
             x =  fib(n-2);
             y =  fib(n-1);
-            store.insert({n-2, x});
-            store.insert({n-1, y});
+            store.insert({n, x+y});
             return x+y;
         }
     }
