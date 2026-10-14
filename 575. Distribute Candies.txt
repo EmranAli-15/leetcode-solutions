@@ -1,0 +1,15 @@
+https://leetcode.com/problems/distribute-candies/description/?envType=problem-list-v2&envId=array
+
+
+
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candyType) {
+        set<int>store;
+        for(auto c:candyType) store.insert(c);
+
+        if(store.size() >= candyType.size()/2)return candyType.size()/2;
+        else return store.size();
+    }
+};

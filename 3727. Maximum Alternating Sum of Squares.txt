@@ -1,0 +1,44 @@
+https://leetcode.com/problems/maximum-alternating-sum-of-squares/?envType=daily-question&envId=2026-10-13
+
+
+
+
+
+class Solution {
+public:
+    long long maxAlternatingSum(vector<int>& nums) {
+        int len = nums.size();
+
+        for(int i=0; i<len; i++){
+            nums[i] = abs(nums[i]);
+        }
+
+        sort(nums.begin(), nums.end());
+
+        int l=0, r=len-1;
+
+        long long ans = 0;
+        bool flag = true;
+        while(l<=r){
+            if(l==r && flag) {
+                ans+=(nums[l]*nums[l]);
+                r--;
+            }
+            else if(l==r && !flag) {
+                ans-=(nums[l]*nums[l]);
+                l++;
+            }
+            else if(flag){
+                ans+=(nums[r]*nums[r]);
+                flag = !flag;
+                r--;
+            }
+            else{
+                ans-=(nums[l]*nums[l]);
+                flag = !flag;
+                l++;
+            }
+        }
+        return ans;
+    }
+};
