@@ -1,0 +1,23 @@
+https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i/description/?envType=daily-question&envId=2026-10-20
+
+
+
+
+class Solution {
+public:
+    long long sumAndMultiply(int n) {
+        string a = to_string(n);
+        long long sum = 0;
+        long long f = 0;
+        for(auto x:a) {
+            long long c = x - '0';
+            if(c){
+                sum+=c;
+                f*=10;
+                f+=c;
+            }
+        }
+        long long ans = sum*f;
+        return ans;
+    }
+};
