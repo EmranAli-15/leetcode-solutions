@@ -1,0 +1,46 @@
+https://leetcode.com/problems/find-if-path-exists-in-graph/description/?envType=problem-list-v2&envId=graph
+
+
+
+
+
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source,
+                   int destination) {
+        unordered_map<int, vector<int>> graph;
+
+        int len = edges.size();
+
+        for (int i = 0; i < len; i++) {
+            int x = edges[i][0];
+            int y = edges[i][1];
+
+            graph[x].push_back(y);
+            graph[y].push_back(x);
+        }
+
+        unordered_set<int> visited;
+        queue<int> mq;
+
+        mq.push(source);
+        visited.insert(source);
+
+        while (!mq.empty()) {
+            int ele = mq.front();
+            mq.pop();
+
+            if (ele == destination)
+                return true;
+
+            for (auto e : graph[ele]) {
+                if (!visited.count(e)) {
+                    visited.insert(e);
+                    mq.push(e);
+                }
+            }
+        }
+
+        return false;
+    }
+};

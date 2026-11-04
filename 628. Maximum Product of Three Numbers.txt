@@ -1,0 +1,17 @@
+https://leetcode.com/problems/maximum-product-of-three-numbers/description/
+
+
+
+
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        int len = nums.size();
+        sort(nums.begin(), nums.end());
+
+        int x = nums[len-3]*nums[len-2]*nums[len-1];
+        int y = nums[0]*nums[1]*nums[len-1];
+        
+        return max(x,y);
+    }
+};
