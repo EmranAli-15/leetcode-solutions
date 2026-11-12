@@ -1,0 +1,179 @@
+https://leetcode.com/problems/implement-trie-prefix-tree/description/
+
+
+
+
+/*
+
+// ১. Trie-এর প্রতিটি নোডের স্ট্রাকচার
+struct TrieNode {
+    TrieNode* children[26]; // ইংরেজি ছোট হাতের a-z এর জন্য ২৬টি পয়েন্টার
+    bool isEnd;             // শব্দটি এখানে শেষ হয়েছে কিনা তা ট্র্যাক করার জন্য
+
+    // কনস্ট্রাক্টর
+    TrieNode() {
+        isEnd = false;
+        for (int i = 0; i < 26; i++) {
+            children[i] = nullptr;
+        }
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+
+public:
+    // কনস্ট্রাক্টর: রুট নোড ইনিশিয়ালাইজ করা
+    Trie() {
+        root = new TrieNode();
+    }
+
+    // ২. শব্দ ইনসার্ট করার ফাংশন
+    void insert(string word) {
+        TrieNode* curr = root;
+        for (char ch : word) {
+            int idx = ch - 'a'; // 'a'-এর জন্য index 0, 'b'-এর জন্য 1 ... 'z'-এর
+জন্য 25 if (curr->children[idx] == nullptr) { curr->children[idx] = new
+TrieNode(); // নতুন নোড তৈরি
+            }
+            curr = curr->children[idx]; // পরের নোডে যাওয়া
+        }
+        curr->isEnd = true; // শব্দ শেষ, তাই ফ্ল্যাগ true করা
+    }
+
+    // ৩. পুরো শব্দ সার্চ করার ফাংশন
+    bool search(string word) {
+        TrieNode* curr = root;
+        for (char ch : word) {
+            int idx = ch - 'a';
+            if (curr->children[idx] == nullptr) {
+                return false; // অক্ষরটি না পেলে মানে শব্দটি নেই
+            }
+            curr = curr->children[idx];
+        }
+        return curr->isEnd; // শব্দ শেষ হয়েছে কি না তা চেক করে রিটার্ন করা
+    }
+
+    // ৪. প্রিফিক্স দিয়ে শুরু হওয়া শব্দ আছে কি না চেক করার ফাংশন
+    bool startsWith(string prefix) {
+        TrieNode* curr = root;
+        for (char ch : prefix) {
+            int idx = ch - 'a';
+            if (curr->children[idx] == nullptr) {
+                return false;
+            }
+            curr = curr->children[idx];
+        }
+        return true; // প্রিফিক্সের সব অক্ষর মিলে গেলে true
+    }
+};
+
+*/
+
+struct TrieNode {
+    bool isEnd = false;
+    TrieNode* a = NULL;
+    TrieNode* b = NULL;
+    TrieNode* c = NULL;
+    TrieNode* d = NULL;
+    TrieNode* e = NULL;
+    TrieNode* f = NULL;
+    TrieNode* g = NULL;
+    TrieNode* h = NULL;
+    TrieNode* i = NULL;
+    TrieNode* j = NULL;
+    TrieNode* k = NULL;
+    TrieNode* l = NULL;
+    TrieNode* m = NULL;
+    TrieNode* n = NULL;
+    TrieNode* o = NULL;
+    TrieNode* p = NULL;
+    TrieNode* q = NULL;
+    TrieNode* r = NULL;
+    TrieNode* s = NULL;
+    TrieNode* t = NULL;
+    TrieNode* u = NULL;
+    TrieNode* v = NULL;
+    TrieNode* w = NULL;
+    TrieNode* x = NULL;
+    TrieNode* y = NULL;
+    TrieNode* z = NULL;
+};
+
+class Trie {
+private:
+    TrieNode* root;
+
+    // ক্যারেক্টার অনুযায়ী সঠিক ভেরিয়েবলের রেফারেন্স রিটার্ন করার জন্য হেল্পার ফাংশন
+    TrieNode*& getChild(TrieNode* curr, char ch) {
+        switch (ch) {
+            case 'a': return curr->a;
+            case 'b': return curr->b;
+            case 'c': return curr->c;
+            case 'd': return curr->d;
+            case 'e': return curr->e;
+            case 'f': return curr->f;
+            case 'g': return curr->g;
+            case 'h': return curr->h;
+            case 'i': return curr->i;
+            case 'j': return curr->j;
+            case 'k': return curr->k;
+            case 'l': return curr->l;
+            case 'm': return curr->m;
+            case 'n': return curr->n;
+            case 'o': return curr->o;
+            case 'p': return curr->p;
+            case 'q': return curr->q;
+            case 'r': return curr->r;
+            case 's': return curr->s;
+            case 't': return curr->t;
+            case 'u': return curr->u;
+            case 'v': return curr->v;
+            case 'w': return curr->w;
+            case 'x': return curr->x;
+            case 'y': return curr->y;
+            case 'z': return curr->z;
+            default: throw invalid_argument("Invalid character");
+        }
+    }
+
+public:
+    Trie() { root = new TrieNode(); }
+
+    void insert(string word) {
+        TrieNode* curr = root;
+        for (char ch : word) {
+            TrieNode*& nextNode = getChild(curr, ch);
+            if (nextNode == NULL) {
+                nextNode = new TrieNode();
+            }
+            curr = nextNode;
+        }
+        curr->isEnd = true;
+    }
+
+    bool search(string word) {
+        TrieNode* curr = root;
+        for (char ch : word) {
+            TrieNode*& nextNode = getChild(curr, ch);
+            if (nextNode == NULL) {
+                return false;
+            }
+            curr = nextNode;
+        }
+        return curr->isEnd;
+    }
+
+    bool startsWith(string prefix) {
+        TrieNode* curr = root;
+        for (char ch : prefix) {
+            TrieNode*& nextNode = getChild(curr, ch);
+            if (nextNode == NULL) {
+                return false;
+            }
+            curr = nextNode;
+        }
+        return true;
+    }
+};
