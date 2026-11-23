@@ -1,0 +1,19 @@
+https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/?envType=problem-list-v2&envId=binary-search
+
+
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int r = numbers.size()-1;
+        int l = 0;
+
+        while(l<r) {
+            int sum = numbers[l] + numbers[r];
+            if(sum == target) break;
+            else if(sum > target) r--;
+            else l++;
+        }
+        return {l+1,r+1};
+    }
+};

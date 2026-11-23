@@ -1,0 +1,19 @@
+https://leetcode.com/problems/majority-element-ii/description/?envType=problem-list-v2&envId=hash-table
+
+
+
+class Solution:
+    def majorityElement(self, nums: list[int]) -> list[int]:
+        store = {}
+        le = len(nums)
+        for n in nums:
+            if(store.get(n)):
+                store[n] = store[n]+1
+            else:
+                store[n] = 1
+        ans = []
+        d = le//3
+        for k,v in store.items():
+            if v > d:
+                ans.append(k)
+        return ans

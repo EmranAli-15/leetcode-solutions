@@ -1,0 +1,28 @@
+https://leetcode.com/problems/set-matrix-zeroes/?envType=problem-list-v2&envId=hash-table
+
+
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        unordered_map<int, vector<int>> store;
+        int m = matrix.size();
+        int n = matrix[0].size();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    store[i].push_back(j);
+                }
+            }
+        }
+
+        for (auto data : store) {
+            for(int i=0; i<n; i++) matrix[data.first][i] = 0;
+
+            for(int e:data.second) {
+                for(int i=0; i<m; i++) matrix[i][e] = 0;
+            }
+        }
+    }
+};
